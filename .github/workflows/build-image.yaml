@@ -1,11 +1,18 @@
 name: Build and Publish Docker Image
 
 on:
-    workflow_call:
-      inputs:
-            service-name:
-              required: true
-              type: string
+  workflow_call:
+    inputs:
+      service-name:
+        required: true
+        type: string
+      docker-login-username:
+        required: true
+        type: string
+      docker-login-password:
+          required: true
+          type: string
+              
 
 jobs:
   build-and-publish-image:
@@ -18,8 +25,8 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.ACTION_TOKEN }}
+          username: ${{ inputs.docker-login-username }}
+          password: ${{ inputs.docker-login-password }}
 
       - name: Build and Publish the Docker Image
         run: |
