@@ -1,9 +1,11 @@
 name: Reusable workflow hello
-on:
-  push:
-    branches:
-      - main
 
+on:
+  workflow_call:
+    inputs:
+          who-to-greet:
+            required: true
+            type: string
 jobs:
   hello:
     runs-on: ubuntu-latest
